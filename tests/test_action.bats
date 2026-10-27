@@ -87,6 +87,7 @@ requests() { grep -c . "$MOCK_DIR/requests.log" 2>/dev/null || echo 0; }
   grep -q '| `Dockerfile` | D | 54 | 1 | 1 | 6 | 2 | ❌ |' "$GITHUB_STEP_SUMMARY"
   grep -q '| `broken/Dockerfile` | skipped: no FROM instruction |' "$GITHUB_STEP_SUMMARY"
   grep -q 'quota left this month: 41' "$GITHUB_STEP_SUMMARY"
+  [[ $output == *"::error title=Shipshape check failed::1 of 2 analysed file(s) failed (fail-on: high)."* ]]
 }
 
 @test "passes when nothing is at or above fail-on" {
@@ -101,6 +102,7 @@ requests() { grep -c . "$MOCK_DIR/requests.log" 2>/dev/null || echo 0; }
   INPUT_MIN_GRADE=c run_action
   [ "$status" -eq 1 ]
   [ "$(out passed)" = false ]
+  [[ $output == *"1 of 1 analysed file(s) failed (fail-on: high, min-grade: C)"* ]]
 }
 
 @test "fail-on and ignore are sent in the request body" {
@@ -127,6 +129,7 @@ requests() { grep -c . "$MOCK_DIR/requests.log" 2>/dev/null || echo 0; }
   run_action
   [ "$status" -eq 1 ]
   [[ $output == *"::error file=k8s/broken.yaml,line=5,title=Shipshape could not parse this file::invalid YAML at line 5"* ]]
+  [[ $output == *"::error title=Shipshape check failed::1 file(s) could not be parsed."* ]]
 }
 
 @test "401/403: error with the subscribe link, and no more requests" {

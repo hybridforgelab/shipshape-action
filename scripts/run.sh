@@ -156,4 +156,16 @@ output requests-used "$requests"
 output quota-remaining "$quota"
 n_ok="$(jq -s '[.[] | select(.report)] | length' "$RESULTS")"
 echo "Shipshape: $n_ok file(s) analysed, $requests request(s), passed=$all_passed${quota:+, $quota left this month}"
+if [[ $all_passed != true ]]; then
+  # say why, instead of leaving only GitHub's generic "Process completed with exit code 1"
+  n_fail="$(jq -s '[.[] | select(.report and (.passed | not))] | length' "$RESULTS")"
+  n_invalid="$(jq -s '[.[] | select(.reason // "" | startswith("invalid:"))] | length' "$RESULTS")"
+  why=()
+  (( n_fail > 0 )) && why+=("$n_fail of $n_ok analysed file(s) failed (fail-on: ${INPUT_FAIL_ON:-high}${MIN_GRADE:+, min-grade: $MIN_GRADE})")
+  (( n_invalid > 0 )) && why+=("$n_invalid file(s) could not be parsed")
+  if (( ${#why[@]} > 0 )); then
+    msg="$(IFS='; '; echo "${why[*]}")"
+    echo "::error title=Shipshape check failed::$msg. The job summary lists every finding with its fix."
+  fi
+fi
 [[ $all_passed == true ]]
