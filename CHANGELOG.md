@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.1...v1.0.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* shorten the action description for the Marketplace (under 125 characters) ([#7](https://github.com/hybridforgelab/shipshape-action/issues/7)) ([fc0a746](https://github.com/hybridforgelab/shipshape-action/commit/fc0a746598bf70c9b46b3508f133f93025f6d179))
+
 ## [1.0.1](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.0...v1.0.1) (2026-10-27)
 
 
