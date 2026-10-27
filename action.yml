@@ -1,5 +1,5 @@
 name: Shipshape Dockerfile & Kubernetes lint
-description: Lint the Dockerfiles and Kubernetes manifests a pull request changes, with Pod Security Standards checks, an A–F grade and PR annotations.
+description: "Lint the Dockerfiles and Kubernetes manifests a pull request changes: Pod Security Standards, A–F grade, PR annotations."
 author: Hybrid Forge Lab
 branding:
   icon: anchor
