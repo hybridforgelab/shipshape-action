@@ -11,8 +11,10 @@ Lint the **Dockerfiles and Kubernetes manifests** a pull request changes, right 
 
 Every finding comes with the line, the fix and the standard behind it. Every file gets an A–F grade.
 
-It calls the [Shipshape API](https://shipshape.hybridforgelab.com) with **your own RapidAPI key**. The free Basic plan
-has 15 requests a month, and one file is one request.
+It calls the [Shipshape API](https://shipshape.hybridforgelab.com) with **your own RapidAPI key**.
+
+- The free Basic plan has 15 requests a month.
+- One file is one request.
 
 ```yaml
 name: shipshape
@@ -30,8 +32,7 @@ jobs:
           rapidapi-key: ${{ secrets.RAPIDAPI_KEY }}
 ```
 
-1. Subscribe to the [Shipshape API on RapidAPI](https://rapidapi.com/hybrid-forge-lab-hybrid-forge-lab-default/api/shipshape-dockerfile-and-kubernetes-lint-api)
-   (Basic is $0 with a hard limit, so it never runs up a bill).
+1. Subscribe to the [Shipshape API on RapidAPI](https://rapidapi.com/hybrid-forge-lab-hybrid-forge-lab-default/api/shipshape-dockerfile-and-kubernetes-lint-api). Basic is $0 with a hard limit, so it never runs up a bill.
 2. Add your RapidAPI key as the repository secret `RAPIDAPI_KEY`.
 3. Add the workflow above.
 
@@ -41,10 +42,14 @@ jobs:
   - `high` findings as errors, `medium` as warnings, `low` and `info` as notices.
   - Each one has the rule id, the explanation and the fix.
   - GitHub shows at most 10 per level, so high severity comes first.
-- **A job summary** with a table per file (grade, score, counts, passed), every finding with its fix and a link to the
-  rule, the files that were skipped and why, and the quota you have left.
-- **A pass/fail result:** the step fails when a finding is at or above `fail-on` (`high` by default), or when a file grades
-  worse than `min-grade`.
+- **A job summary** with:
+  - a table per file (grade, score, counts, passed);
+  - every finding with its fix and a link to the rule;
+  - the files that were skipped and why;
+  - the quota you have left.
+- **A pass/fail result:** the step fails when:
+  - a finding is at or above `fail-on` (`high` by default);
+  - or a file grades worse than `min-grade`.
 
 ## Inputs
 
@@ -64,20 +69,29 @@ jobs:
 
 ## Outputs
 
-`passed`, `worst-grade`, `lowest-score`, `findings-total`, `requests-used`, `quota-remaining`. The last one comes
-from RapidAPI's `x-ratelimit-requests-remaining` header.
+| output | meaning |
+|---|---|
+| `passed` | `true` when every analysed file passed (and met `min-grade`) |
+| `worst-grade` | the worst grade among analysed files (empty when none was analysed) |
+| `lowest-score` | the lowest score among analysed files |
+| `findings-total` | total number of findings across analysed files |
+| `requests-used` | API requests used by this run |
+| `quota-remaining` | requests left this month, from RapidAPI's `x-ratelimit-requests-remaining` header |
 
 ## Saving requests
 
-One file is one request. A multi-document YAML (`---`) is a single request, up to 500 documents. Before anything is
-sent, these files are skipped locally at no cost:
+One file is one request. A multi-document YAML (`---`) is a single request, up to 500 documents.
+
+Before anything is sent, these files are skipped locally at no cost:
 
 - Dockerfiles without `FROM`;
 - YAML without `apiVersion` and `kind` (not a Kubernetes manifest);
 - Helm templates (anything with `{{ }}`);
 - files over 512 KiB.
 
-With `mode: changed`, a typical pull request costs 1 to 3 requests. When fewer than 3 are left, the action warns you.
+With `mode: changed`, a typical pull request costs 1 to 3 requests.
+
+When fewer than 3 are left, the action warns you.
 
 ## When something goes wrong
 
@@ -89,14 +103,18 @@ With `mode: changed`, a typical pull request costs 1 to 3 requests. When fewer t
 | quota exhausted (429) | `on-quota-exceeded: warn` gives a warning and the step passes; `fail` fails it |
 | API down or timing out | one retry, then a warning: **your build is never failed because of us** |
 
-Use `on: pull_request`, not `pull_request_target`. With `pull_request_target`, a pull request from a fork would run
-with your secrets. Skipping fork pull requests is the safe default.
+Use `on: pull_request`, not `pull_request_target`:
+
+- with `pull_request_target`, a pull request from a fork would run with your secrets;
+- skipping fork pull requests is the safe default.
 
 ## Privacy
 
-The content of each file is sent to the Shipshape API, parsed in memory and discarded. Nothing is stored, and
-Dockerfiles and manifests are never logged. See the [privacy policy](https://shipshape.hybridforgelab.com/privacy.html).
-Your key is masked in the logs.
+- The content of each file is sent to the Shipshape API, parsed in memory and discarded.
+- Nothing is stored, and Dockerfiles and manifests are never logged.
+- Your key is masked in the logs.
+
+See the [privacy policy](https://shipshape.hybridforgelab.com/privacy.html).
 
 ## Limits
 
@@ -107,8 +125,9 @@ Your key is masked in the logs.
 
 ## Contributing
 
-Issues and pull requests are welcome. See the
-[contributing guide](https://github.com/hybridforgelab/.github/blob/main/CONTRIBUTING.md). To work on the action:
+Issues and pull requests are welcome: see the [contributing guide](https://github.com/hybridforgelab/.github/blob/main/CONTRIBUTING.md).
+
+To work on the action:
 
 ```bash
 bats tests/                                 # unit tests (curl is faked, no key needed)
@@ -116,9 +135,10 @@ shellcheck -x scripts/*.sh tests/bin/curl
 actionlint
 ```
 
-The end-to-end test (`.github/workflows/e2e.yml`) runs the action against the real API monthly, with the
-`RAPIDAPI_KEY` secret.
+The end-to-end test (`.github/workflows/e2e.yml`) runs the action against the real API monthly, with the `RAPIDAPI_KEY` secret.
 
 ## Licence
 
-MIT. Shipshape itself is a paid API with a free plan, run by [Hybrid Forge Lab](https://hybridforgelab.com).
+MIT.
+
+Shipshape itself is a paid API with a free plan, run by [Hybrid Forge Lab](https://hybridforgelab.com).
