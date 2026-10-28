@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.2...v1.0.3) (2026-10-28)
+
+
+### Bug Fixes
+
+* /**/ in path inputs also matches no folder ([#9](https://github.com/hybridforgelab/shipshape-action/issues/9)) ([9949f5f](https://github.com/hybridforgelab/shipshape-action/commit/9949f5feae884802ca6fbadcec1428ef423827c6))
+
 ## [1.0.2](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.1...v1.0.2) (2026-10-27)
 
 
