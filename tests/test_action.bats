@@ -49,6 +49,15 @@ requests() { grep -c . "$MOCK_DIR/requests.log" 2>/dev/null || echo 0; }
   [ -z "$(classify README.md)" ]
 }
 
+@test "globs: /**/ also matches no folder at all" {
+  source "$ROOT/scripts/lib.sh"
+  glob_match app/Dockerfile 'app/**/Dockerfile'
+  glob_match app/api/Dockerfile 'app/**/Dockerfile'
+  glob_match deploy/k8s/web.yaml 'deploy/**/*.yaml'
+  glob_match deploy/web.yaml 'deploy/**/*.yaml'
+  ! glob_match other/Dockerfile 'app/**/Dockerfile'
+}
+
 @test "pre-filter: no FROM, not Kubernetes, Helm, too large" {
   source "$ROOT/scripts/lib.sh"
   cd "$REPO"

@@ -17,6 +17,13 @@ glob_match() {
     # shellcheck disable=SC2053
     if [[ $path == ${pattern#'**/'} ]]; then return 0; fi
   fi
+  # "/**/" also matches no folder at all: app/**/Dockerfile matches app/Dockerfile
+  if [[ $pattern == *'/**/'* ]]; then
+    local slash=/ zero
+    zero="${pattern//\/\*\*\//$slash}" # a variable: escaping "/" in the replacement differs between bash versions
+    # shellcheck disable=SC2053
+    if [[ $path == $zero ]]; then return 0; fi
+  fi
   return 1
 }
 
