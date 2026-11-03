@@ -1,5 +1,11 @@
 # Shipshape GitHub Action
 
+[![CI](https://github.com/hybridforgelab/shipshape-action/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hybridforgelab/shipshape-action/actions/workflows/ci.yml)
+[![E2E](https://github.com/hybridforgelab/shipshape-action/actions/workflows/e2e.yml/badge.svg?branch=main)](https://github.com/hybridforgelab/shipshape-action/actions/workflows/e2e.yml)
+[![Release](https://img.shields.io/github/v/release/hybridforgelab/shipshape-action)](https://github.com/hybridforgelab/shipshape-action/releases)
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-shipshape-blue?logo=github)](https://github.com/marketplace/actions/shipshape-dockerfile-kubernetes-lint)
+[![License: MIT](https://img.shields.io/github/license/hybridforgelab/shipshape-action)](LICENSE)
+
 Lint the **Dockerfiles and Kubernetes manifests** a pull request changes, right on the diff:
 
 - root in the final stage;
