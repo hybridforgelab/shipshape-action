@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.3...v1.0.4) (2026-11-05)
+
+
+### Bug Fixes
+
+* point the RapidAPI pricing links at the ByteStay org ([#13](https://github.com/hybridforgelab/shipshape-action/issues/13)) ([9729366](https://github.com/hybridforgelab/shipshape-action/commit/9729366d96ae0ff1b6359444ee31423cbed9175c))
+
 ## [1.0.3](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.2...v1.0.3) (2026-10-28)
 
 
