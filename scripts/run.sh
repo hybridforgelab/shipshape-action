@@ -6,7 +6,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=scripts/lib.sh
 source "$HERE/lib.sh"
 
-PRICING="https://rapidapi.com/hybrid-forge-lab-hybrid-forge-lab-default/api/shipshape-dockerfile-and-kubernetes-lint-api/pricing"
+PRICING="https://rapidapi.com/bytestay-bytestay-default/api/shipshape-dockerfile-and-kubernetes-lint-api/pricing"
 OUT="${GITHUB_OUTPUT:-/dev/null}"
 SUMMARY="${GITHUB_STEP_SUMMARY:-/dev/null}"
 WORK="$(mktemp -d)"
