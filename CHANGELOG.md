@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.4...v1.0.5) (2026-11-08)
+
+
+### Bug Fixes
+
+* warn that the Action moved to Bytestay/shipshape-action ([#15](https://github.com/hybridforgelab/shipshape-action/issues/15)) ([cdc7200](https://github.com/hybridforgelab/shipshape-action/commit/cdc720029c7efdd95fc4c38e0b15317bbd2d448a))
+
 ## [1.0.4](https://github.com/hybridforgelab/shipshape-action/compare/v1.0.3...v1.0.4) (2026-11-05)
 
 
