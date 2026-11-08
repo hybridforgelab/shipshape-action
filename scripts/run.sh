@@ -2,6 +2,9 @@
 # Shipshape GitHub Action: lint the Dockerfiles and Kubernetes manifests a change touches.
 set -euo pipefail
 
+# This repository is legacy: the Action moved to Bytestay/shipshape-action. Tell every caller, then carry on as before.
+echo "::warning::hybridforgelab/shipshape-action has moved to Bytestay/shipshape-action. Change uses: to Bytestay/shipshape-action@v1 (same inputs). This copy gets no more updates."
+
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=scripts/lib.sh
 source "$HERE/lib.sh"

@@ -1,9 +1,16 @@
 # Shipshape GitHub Action
 
+> [!IMPORTANT]
+> **This Action has moved to [Bytestay/shipshape-action](https://github.com/Bytestay/shipshape-action).** It is on the GitHub Marketplace as [ByteStay Shipshape](https://github.com/marketplace/actions/bytestay-shipshape-dockerfile-kubernetes-lint).
+>
+> - Change `uses: hybridforgelab/shipshape-action@v1` to `uses: Bytestay/shipshape-action@v1`.
+> - The inputs and outputs are the same, so nothing else changes.
+> - This repository keeps working, but it gets no more updates, and every run prints a warning that points to the new one.
+
 [![CI](https://github.com/hybridforgelab/shipshape-action/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hybridforgelab/shipshape-action/actions/workflows/ci.yml)
 [![E2E](https://github.com/hybridforgelab/shipshape-action/actions/workflows/e2e.yml/badge.svg?branch=main)](https://github.com/hybridforgelab/shipshape-action/actions/workflows/e2e.yml)
 [![Release](https://img.shields.io/github/v/release/hybridforgelab/shipshape-action)](https://github.com/hybridforgelab/shipshape-action/releases)
-[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-shipshape-blue?logo=github)](https://github.com/marketplace/actions/shipshape-dockerfile-kubernetes-lint)
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-shipshape-blue?logo=github)](https://github.com/marketplace/actions/bytestay-shipshape-dockerfile-kubernetes-lint)
 [![License: MIT](https://img.shields.io/github/license/hybridforgelab/shipshape-action)](LICENSE)
 
 Lint the **Dockerfiles and Kubernetes manifests** a pull request changes, right on the diff:
@@ -33,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: hybridforgelab/shipshape-action@v1
+      - uses: Bytestay/shipshape-action@v1
         with:
           rapidapi-key: ${{ secrets.RAPIDAPI_KEY }}
 ```

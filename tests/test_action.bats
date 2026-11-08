@@ -248,3 +248,10 @@ requests() { grep -c . "$MOCK_DIR/requests.log" 2>/dev/null || echo 0; }
   INPUT_MODE=some run_action;          [ "$status" -eq 1 ]; [[ $output == *"mode must be"* ]]
   INPUT_ON_QUOTA_EXCEEDED=x run_action; [ "$status" -eq 1 ]; [[ $output == *"on-quota-exceeded must be"* ]]
 }
+
+@test "every run first warns that the Action moved to Bytestay, then carries on as before" {
+  INPUT_RAPIDAPI_KEY="" GITHUB_EVENT_NAME=pull_request run_action
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "::warning::hybridforgelab/shipshape-action has moved to Bytestay/shipshape-action. Change uses: to Bytestay/shipshape-action@v1 (same inputs). This copy gets no more updates." ]
+  [[ $output == *"skipped: no rapidapi-key"* ]]
+}
